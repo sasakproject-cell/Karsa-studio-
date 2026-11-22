@@ -9,34 +9,41 @@
     <title>Lop Creative — Studio Pembuatan Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #f7f4ee;
-        --surface: #fffdf9;
-        --surface-2: #efe9dd;
-        --ink: #1b1712;
-        --muted: #5d564c;
-        --line: #ddd4c3;
-        --accent: #e4572e;
-        --accent-dark: #c7431f;
-        --accent-soft: #fbe9e1;
+        --bg: #eef3f8;
+        --surface: #ffffff;
+        --surface-2: #e2ecf5;
+        --ink: #081226;
+        --muted: #4c6076;
+        --line: #c3d5e6;
+        --accent: #0284c7;
+        --accent-dark: #0369a1;
+        --accent-soft: #d9f2fd;
+        --neon: #06b6d4;
+        --violet: #7c5cff;
+        --lime: #a3e635;
         --wa: #1fae55;
-        --shadow: 0 18px 40px rgba(27, 23, 18, 0.14);
+        --shadow: 0 18px 44px rgba(2, 132, 199, 0.22);
+        --glow: 0 0 22px rgba(6, 182, 212, 0.55);
         color-scheme: light;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --bg: #14110e;
-          --surface: #1e1a16;
-          --surface-2: #262019;
-          --ink: #f4efe7;
-          --muted: #ada191;
-          --line: #38302a;
-          --accent: #ff6b3d;
-          --accent-dark: #ff8157;
-          --accent-soft: #3a2318;
-          --shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+          --bg: #040816;
+          --surface: #0a1329;
+          --surface-2: #101c3a;
+          --ink: #eaf6ff;
+          --muted: #93a9c6;
+          --line: #1d2f52;
+          --accent: #22d3ee;
+          --accent-dark: #67e8f9;
+          --accent-soft: #0a2a3d;
+          --neon: #22d3ee;
+          --violet: #8b7cff;
+          --shadow: 0 18px 44px rgba(0, 0, 0, 0.6);
+          --glow: 0 0 26px rgba(34, 211, 238, 0.6);
           color-scheme: dark;
         }
       }
@@ -433,6 +440,127 @@
       .dchips span { background: #f1ede3; border-radius: 999px; padding: 6px 12px; font-size: 0.82rem; font-weight: 600; }
       .dfoot { padding: 16px 20px; background: #f6f3ec; color: #68707d; font-size: 0.8rem; text-align: center; }
 
+      /* ============================================================
+         FUTURISTIK — logo & teks animasi yang TERLIHAT jelas
+         ============================================================ */
+      body { position: relative; overflow-x: hidden; }
+      /* Latar grid neon bergerak + dua orb cahaya melayang */
+      .bg-fx { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+      .bg-fx::before {
+        content: ""; position: absolute; inset: -60px;
+        background-image:
+          linear-gradient(color-mix(in srgb, var(--neon) 13%, transparent) 1px, transparent 1px),
+          linear-gradient(90deg, color-mix(in srgb, var(--neon) 13%, transparent) 1px, transparent 1px);
+        background-size: 52px 52px;
+        animation: gridMove 7s linear infinite;
+        mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 75%);
+      }
+      @keyframes gridMove { from { transform: translateY(0); } to { transform: translateY(52px); } }
+      .bg-fx .orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5; }
+      .bg-fx .orb-a { width: 420px; height: 420px; background: var(--neon); top: -140px; right: -100px; animation: orbFloat 11s ease-in-out infinite; }
+      .bg-fx .orb-b { width: 340px; height: 340px; background: var(--violet); top: 480px; left: -140px; animation: orbFloat 14s ease-in-out infinite reverse; }
+      @keyframes orbFloat { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-36px, 44px) scale(1.12); } }
+
+      /* ---------- LOGO ANIMASI ---------- */
+      .brand { display: inline-flex; align-items: center; gap: 12px; }
+      .logo-mark { position: relative; width: 46px; height: 46px; flex: none; display: grid; place-items: center; }
+      .logo-mark::before { /* cincin berputar */
+        content: ""; position: absolute; inset: 0; border-radius: 50%;
+        background: conic-gradient(from 0deg, var(--neon), var(--violet), transparent 55%, var(--neon));
+        animation: logoSpin 3.2s linear infinite;
+        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+        mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+      }
+      .logo-mark::after { /* denyut glow */
+        content: ""; position: absolute; inset: 6px; border-radius: 14px;
+        background: linear-gradient(135deg, var(--neon), var(--violet));
+        animation: logoPulse 2.2s ease-in-out infinite; z-index: 0;
+      }
+      @keyframes logoSpin { to { transform: rotate(360deg); } }
+      @keyframes logoPulse {
+        0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--neon) 55%, transparent), 0 0 18px color-mix(in srgb, var(--neon) 45%, transparent); transform: scale(1); }
+        50% { box-shadow: 0 0 0 7px transparent, 0 0 34px color-mix(in srgb, var(--violet) 65%, transparent); transform: scale(1.06); }
+      }
+      .logo-mark svg { position: relative; z-index: 1; animation: logoFloat 3s ease-in-out infinite; }
+      @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
+      .logo-text { line-height: 1; display: inline-flex; flex-direction: column; }
+      .logo-word {
+        font-family: "Orbitron", "Archivo", sans-serif; font-weight: 800; letter-spacing: 0.01em;
+        background: linear-gradient(100deg, var(--ink) 20%, var(--neon) 40%, var(--violet) 52%, var(--ink) 72%);
+        background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+        animation: textShine 3.6s linear infinite;
+      }
+      .logo-word .dot { -webkit-text-fill-color: var(--neon); color: var(--neon); animation: dotBlink 1.6s ease-in-out infinite; }
+      @keyframes textShine { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+      @keyframes dotBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+      .brand small { color: var(--accent); }
+
+      /* ---------- TEKS HERO ANIMASI ---------- */
+      .live-badge {
+        display: inline-flex; align-items: center; gap: 9px; margin-bottom: 20px;
+        border: 1px solid color-mix(in srgb, var(--neon) 55%, transparent); border-radius: 999px;
+        padding: 8px 16px; font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; letter-spacing: 0.14em;
+        color: var(--accent); background: color-mix(in srgb, var(--surface) 72%, transparent);
+        box-shadow: var(--glow); animation: rise 0.7s ease both;
+      }
+      .live-badge i { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; font-style: normal; animation: livePing 1.4s ease-out infinite; }
+      @keyframes livePing { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.65); } 100% { box-shadow: 0 0 0 9px rgba(34, 197, 94, 0); } }
+      .hero { position: relative; }
+      .hero-watermark {
+        position: absolute; top: 6px; right: -10px; z-index: 0; pointer-events: none; user-select: none;
+        font-family: "Orbitron", sans-serif; font-weight: 900; font-size: clamp(6rem, 17vw, 12.5rem); line-height: 1;
+        color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--neon) 30%, transparent);
+        animation: wmFloat 8s ease-in-out infinite; white-space: nowrap;
+      }
+      @keyframes wmFloat { 0%, 100% { transform: translate(0, 0); opacity: 0.55; } 50% { transform: translate(-16px, 14px); opacity: 1; } }
+      .hero > :not(.hero-watermark) { position: relative; z-index: 1; }
+      .hero h1 .w { display: inline-block; opacity: 0; animation: wordIn 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+      @keyframes wordIn { from { opacity: 0; transform: translateY(30px) rotate(2.5deg); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+      .hero h1 .grad {
+        background: linear-gradient(95deg, var(--neon), var(--violet), var(--lime), var(--neon));
+        background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+        /* Gabungkan wordIn (dari .w) + gradFlow agar tidak saling menimpa:
+           wordIn mengurus opacity/transform/filter, gradFlow mengurus background-position */
+        animation: wordIn 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) var(--d, 0s) forwards, gradFlow 4s linear infinite;
+      }
+      @keyframes gradFlow { from { background-position: 0% 0; } to { background-position: 300% 0; } }
+      .type-wrap { display: inline-flex; align-items: baseline; white-space: nowrap; opacity: 0; animation: wordIn 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) 0.58s forwards; }
+      #typeWord {
+        color: var(--accent); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--neon) 60%, transparent);
+        text-decoration-thickness: 5px; text-underline-offset: 8px;
+      }
+      .caret { display: inline-block; width: 4px; height: 0.82em; margin-left: 5px; background: var(--neon); box-shadow: var(--glow); animation: caretBlink 0.75s steps(1) infinite; transform: translateY(0.1em); }
+      @keyframes caretBlink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+      .hero-kicker { color: var(--accent); }
+      .hero-kicker::before { background: linear-gradient(90deg, var(--neon), var(--violet)); box-shadow: var(--glow); animation: kickerGrow 2.4s ease-in-out infinite; transform-origin: left; }
+      @keyframes kickerGrow { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(1.5); } }
+      .scroll-cue { display: flex; align-items: center; gap: 10px; margin-top: 30px; font-family: "IBM Plex Mono", monospace; font-size: 0.76rem; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; }
+      .scroll-cue svg { animation: cueBounce 1.6s ease-in-out infinite; color: var(--accent); }
+      @keyframes cueBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+
+      /* ---------- Judul section & kartu: aksen futuristik ---------- */
+      .sec-label { display: inline-flex; align-items: center; gap: 8px; }
+      .sec-label::before { content: ""; width: 9px; height: 9px; background: var(--neon); box-shadow: var(--glow); animation: dotBlink 1.8s ease-in-out infinite; }
+      .sec-head h2, .about-grid h2, .cta h2 { font-family: "Orbitron", "Archivo", sans-serif; letter-spacing: -0.01em; }
+      .work-card, .step, .plan { position: relative; }
+      .work-card:hover, .step:hover, .plan:hover { border-color: var(--neon); box-shadow: var(--glow), var(--shadow); }
+      .btn-accent { background: linear-gradient(100deg, var(--neon), var(--violet)); background-size: 200% 100%; transition: background-position 0.45s ease, transform 0.18s ease, box-shadow 0.25s ease; }
+      .btn-accent:hover { background-position: 100% 0; background-color: transparent; box-shadow: var(--glow); }
+      .scroll-progress { background: linear-gradient(90deg, var(--neon), var(--violet), var(--lime)); box-shadow: var(--glow); height: 4px; }
+      .marquee { background: linear-gradient(90deg, #050b1e, #0a1e3f, #050b1e); }
+      .marquee span { font-family: "Orbitron", "Archivo", sans-serif; font-size: 0.86rem; }
+      .cta { background: linear-gradient(135deg, #050b1e, #0b2440 55%, #1b1040); border: 1px solid color-mix(in srgb, var(--neon) 45%, transparent); box-shadow: var(--glow); }
+      .cta h2 .grad { background: linear-gradient(95deg, var(--neon), var(--lime), var(--neon)); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradFlow 3.5s linear infinite; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .bg-fx::before, .bg-fx .orb, .logo-mark::before, .logo-mark::after, .logo-mark svg,
+        .logo-word, .logo-word .dot, .live-badge i, .hero-watermark, .hero h1 .w, .hero h1 .grad,
+        .cta h2 .grad, .caret, .hero-kicker::before, .scroll-cue svg, .sec-label::before { animation: none !important; }
+        .hero h1 .w, .type-wrap { opacity: 1; }
+        .caret { display: none; }
+      }
+
       /* ---------- Responsive ---------- */
       @media (max-width: 900px) {
         .steps { grid-template-columns: repeat(2, 1fr); }
@@ -465,10 +593,14 @@
     </style>
   </head>
   <body>
+    <div class="bg-fx" aria-hidden="true"><span class="orb orb-a"></span><span class="orb orb-b"></span></div>
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
     <header>
       <div class="wrap nav">
-        <a class="brand" href="#atas">Lop<span class="dot">.</span><small>CREATIVE</small></a>
+        <a class="brand" href="#atas" aria-label="Lop Creative — ke atas">
+          <span class="logo-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v15h12"/></svg></span>
+          <span class="logo-text"><span class="logo-word">Lop<span class="dot">.</span></span><small>CREATIVE</small></span>
+        </a>
         <nav class="nav-links" aria-label="Navigasi utama">
           <a href="#karya">Karya</a>
           <a href="#layanan">Layanan</a>
@@ -494,13 +626,16 @@
     <main id="atas">
       <!-- HERO -->
       <div class="wrap hero">
+        <span class="hero-watermark" aria-hidden="true">LOP</span>
+        <span class="live-badge"><i aria-hidden="true"></i>ONLINE — SEDANG MENERIMA PROYEK BARU</span><br />
         <span class="hero-kicker">Studio Pembuatan Website</span>
-        <h1>Kami membuat website yang mengubah pengunjung menjadi <span class="hl">pelanggan</span>.</h1>
+        <h1><span class="w" style="--d:.02s">Kami</span> <span class="w" style="--d:.10s">membuat</span> <span class="w grad" style="--d:.18s">website</span> <span class="w" style="--d:.26s">yang</span> <span class="w" style="--d:.34s">mengubah</span> <span class="w" style="--d:.42s">pengunjung</span> <span class="w" style="--d:.50s">menjadi</span> <span class="type-wrap"><span id="typeWord">pelanggan</span><span class="caret" aria-hidden="true"></span></span>.</h1>
         <p class="hero-sub">Lop Creative membantu bisnis tampil meyakinkan di internet — dari company profile, toko online, sampai sistem booking. Desain rapi, cepat dibuka di HP, dan gampang dikelola sendiri.</p>
         <div class="hero-cta">
           <a class="btn btn-accent" href="#karya">Lihat Karya Kami</a>
           <a class="btn btn-ghost" href="https://wa.me/62895634060842?text=Halo%20Lop%20Creative%2C%20saya%20mau%20konsultasi%20pembuatan%20website%20untuk%20bisnis%20saya." target="_blank" rel="noopener">Diskusi via WhatsApp</a>
         </div>
+        <p class="scroll-cue" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 4v14M6 12l6 6 6-6"/></svg> Gulir ke bawah — lihat demo live-nya</p>
         <div class="hero-meta">
           <div><b data-count="6" data-suffix="+">6+</b><span>Bidang bisnis yang kami layani</span></div>
           <div><b>7–14 hari</b><span>Estimasi pengerjaan website standar</span></div>
@@ -825,7 +960,7 @@
       <!-- CTA -->
       <div class="wrap">
         <div class="cta">
-          <h2>Punya bisnis yang layak punya website bagus?</h2>
+          <h2>Punya bisnis yang layak punya <span class="grad">website bagus?</span></h2>
           <p>Ceritakan kebutuhan Anda — gratis konsultasi, tanpa komitmen. Kami balas dengan rekomendasi jenis website yang paling cocok dan perkiraan biayanya.</p>
           <div class="hero-cta">
             <a class="btn btn-wa" href="https://wa.me/62895634060842?text=Halo%20Lop%20Creative%2C%20saya%20mau%20konsultasi%20pembuatan%20website%20untuk%20bisnis%20saya." target="_blank" rel="noopener">
@@ -841,7 +976,10 @@
     <footer>
       <div class="wrap foot">
         <div>
-          <a class="brand" href="#atas" style="font-size:1.3rem">Lop<span class="dot">.</span><small>CREATIVE</small></a>
+          <a class="brand" href="#atas" style="font-size:1.3rem" aria-label="Lop Creative — ke atas">
+            <span class="logo-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v15h12"/></svg></span>
+            <span class="logo-text"><span class="logo-word">Lop<span class="dot">.</span></span><small>CREATIVE</small></span>
+          </a>
           <small>© 2026 Lop Creative — Studio pembuatan website untuk bisnis.<br />Proyek pada halaman Karya adalah proyek contoh (demo) untuk menunjukkan gaya dan kemampuan kami.</small>
         </div>
         <nav aria-label="Navigasi footer">
@@ -1372,6 +1510,31 @@
         }
       });
 
+    </script>
+    <script>
+      /* ---------- Efek mengetik pada kata terakhir judul hero ---------- */
+      (function () {
+        var el = document.getElementById("typeWord");
+        if (!el) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var words = ["pelanggan", "pembeli setia", "pemesanan", "klien tetap"];
+        var wi = 0, ci = words[0].length, deleting = false;
+        function tick() {
+          var word = words[wi];
+          if (!deleting) {
+            ci++;
+            el.textContent = word.slice(0, ci);
+            if (ci === word.length) { deleting = true; setTimeout(tick, 1900); return; }
+            setTimeout(tick, 85);
+          } else {
+            ci--;
+            el.textContent = word.slice(0, ci);
+            if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; setTimeout(tick, 320); return; }
+            setTimeout(tick, 42);
+          }
+        }
+        setTimeout(tick, 2400);
+      })();
     </script>
   </body>
 </html>
